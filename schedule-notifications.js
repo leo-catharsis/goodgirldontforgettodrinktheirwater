@@ -6,11 +6,9 @@
 // 👉 C'est ICI que tu ajoutes / modifies tes messages perso.
 
 const MESSAGES = [
-  "Petit rappel tout doux : et si tu buvais un verre d'eau ? 🎀",
-  "Coucou toi, pense à t'hydrater un peu 💧",
-  "Une pause eau s'impose, non ? 🎀",
-  "Juste un mot pour te rappeler de boire un peu d'eau ✨",
-  "Allez, un petit verre d'eau et on repart 🎀",
+  "Good girls drink water 🧚🏻‍♀️",
+  "Time to drink water 🤪",
+  "Drink and swallow, be my good girl 🌚",
 ];
 
 const HOUR_START = 8;  // 8h
