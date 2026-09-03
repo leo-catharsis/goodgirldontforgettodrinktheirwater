@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Pense à boire de l'eau</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="theme-color" content="#C4283F" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="icon" href="/icon-192.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,440;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- OneSignal SDK — remplace REMPLACE_PAR_TON_APP_ID plus bas une fois ton compte OneSignal créé -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+<style>
+  :root {
+    --cream: #FFF8F6;
+    --blush: #FBE7EE;
+    --ribbon: #C4283F;
+    --ribbon-dark: #8F1B2E;
+    --ink: #3B2A2E;
+    --muted: #8C7378;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #FFF8F6 0%, #FBE7EE 100%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+  }
+
+  .card {
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .ribbon-wrap {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 28px;
+    border-radius: 26px;
+    background: #FFFFFF;
+    box-shadow: 0 12px 30px rgba(196, 40, 63, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ribbon-wrap img {
+    width: 60px;
+    height: 60px;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+
+  p.lead {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0 0 32px;
+    max-width: 30ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button#activate-btn {
+    appearance: none;
+    border: none;
+    background: var(--ribbon);
+    color: #FFF9F7;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 15px 30px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(196, 40, 63, 0.28);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  button#activate-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 6px 14px rgba(196, 40, 63, 0.24);
+  }
+
+  #status {
+    margin-top: 22px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ribbon-dark);
+    min-height: 20px;
+  }
+
+  .footnote {
+    margin-top: 46px;
+    font-size: 12px;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="ribbon-wrap">
+      <img src="/icon-192.png" alt="" />
+    </div>
+    <h1>Un petit rappel, juste pour toi</h1>
+    <p class="lead">Active tes notifications pour recevoir quelques messages doux dans la journée, histoire de penser à boire de l'eau.</p>
+
+    <button id="activate-btn">Activer mes rappels</button>
+    <div id="status"></div>
+
+    <p class="footnote">Tu peux désactiver les notifications à tout moment dans les réglages de ton iPhone.</p>
+  </div>
+
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function (OneSignal) {
+      await OneSignal.init({
+        appId: "REMPLACE_PAR_TON_ONESIGNAL_APP_ID",
+      });
+    });
+
+    const btn = document.getElementById('activate-btn');
+    const status = document.getElementById('status');
+
+    btn.addEventListener('click', () => {
+      status.textContent = "Un instant…";
+      window.OneSignalDeferred.push(async function (OneSignal) {
+        try {
+          await OneSignal.Notifications.requestPermission();
+          if (OneSignal.Notifications.permission) {
+            status.textContent = "C'est activé — attends-toi à quelques rappels doux dans la journée 🎀";
+            btn.style.display = 'none';
+          } else {
+            status.textContent = "Les notifications sont désactivées. Tu peux les réactiver dans Réglages > Safari.";
+          }
+        } catch (e) {
+          status.textContent = "Un souci est survenu, réessaie dans quelques secondes.";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
