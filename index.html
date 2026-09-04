@@ -152,7 +152,7 @@
         try {
           await OneSignal.Notifications.requestPermission();
           if (OneSignal.Notifications.permission) {
-            status.textContent = "C'est activé — attends-toi à quelques rappels doux dans la journée 🎀";
+            status.textContent = "Everything is ready, now you just have to wait for my orders :)";
             btn.style.display = 'none';
           } else {
             status.textContent = "Les notifications sont désactivées. Tu peux les réactiver dans Réglages > Safari.";
