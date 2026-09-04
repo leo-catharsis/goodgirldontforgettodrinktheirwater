@@ -45,7 +45,7 @@ async function sendScheduled(deliveryTimeOfDay, message) {
     },
     body: JSON.stringify({
       app_id: process.env.ONESIGNAL_APP_ID,
-      included_segments: ['Subscribed Users'],
+      included_segments: ['Active Subscriptions'],
       contents: { fr: message, en: message },
       delayed_option: 'timezone',
       delivery_time_of_day: deliveryTimeOfDay,
