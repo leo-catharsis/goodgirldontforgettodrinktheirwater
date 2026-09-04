@@ -49,7 +49,6 @@ async function sendScheduled(deliveryTimeOfDay, message) {
       contents: { fr: message, en: message },
       delayed_option: 'timezone',
       delivery_time_of_day: deliveryTimeOfDay,
-      throttle_rate_per_minute: 0,
     }),
   });
   const data = await res.json().catch(() => ({}));
